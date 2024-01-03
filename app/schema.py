@@ -12,6 +12,7 @@ class PostCreate(PostBase):
 class Post(PostBase):
     id: int
     created_at:datetime
+    owner_id: int
     
     #pydantic model have idea of dict property but dont have idea of sqlalchemy model
     class Config:
