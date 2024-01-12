@@ -9,25 +9,26 @@ class PostBase(BaseModel):
 class PostCreate(PostBase):
     pass
 
-class Post(PostBase):
-    id: int
-    created_at:datetime
-    owner_id: int
-    
-    #pydantic model have idea of dict property but dont have idea of sqlalchemy model
-    class Config:
-        orm_mode =True
-        
-class UserCreate(BaseModel):
-    email: EmailStr
-    password: str
-    
 class UserOut(BaseModel):
     id: int
     email: str
     created_at: datetime
     class Config:
         orm_mode = True
+        
+class Post(PostBase):
+    id: int
+    created_at:datetime
+    owner_id: int
+    owner: UserOut
+    
+    # pydantic model have idea of dict property but dont have idea of sqlalchemy model
+    class Config:
+        orm_mode =True
+        
+class UserCreate(BaseModel):
+    email: EmailStr
+    password: str
         
 class UserLogin(BaseModel):
     email: EmailStr
