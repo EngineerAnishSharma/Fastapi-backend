@@ -4,14 +4,13 @@ from sqlalchemy.orm import sessionmaker
 from urllib.parse import quote_plus
 import psycopg2
 from psycopg2.extras import RealDictCursor
-import time
-
+from .config import settings
 password = "Sharma@123456"
 
 # URL-encode the password
-encoded_password = quote_plus(password)
+encoded_password = quote_plus(settings.database_password)
 
-SQLALCHEMY_DATABASE_URL = f"postgresql://postgres:{encoded_password}@localhost/fastapi"
+SQLALCHEMY_DATABASE_URL = f"postgresql://{settings.database_username}:{encoded_password}@{settings.database_hostname}:{settings.database_port}/{settings.database_name}"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
